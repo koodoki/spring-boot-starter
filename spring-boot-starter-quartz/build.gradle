@@ -1,0 +1,18 @@
+jar {
+    manifest {
+        attributes manifestAttributes("Spring Boot Quartz Starter", version)
+    }
+}
+
+dependencies {
+    compile("org.quartz-scheduler:quartz:${versions.quartz}") {
+        exclude group: "com.mchange"
+        exclude group: "com.zaxxer"
+    }
+    compileOnly "org.springframework.boot:spring-boot-starter"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+}
+
+compileJava.dependsOn(processResources)
+
+apply from: "../publish.gradle"

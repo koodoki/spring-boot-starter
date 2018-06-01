@@ -1,0 +1,17 @@
+jar {
+    manifest {
+        attributes manifestAttributes("Spring Boot Kaptcha Starter", version)
+    }
+}
+
+dependencies {
+    compile "com.jhlabs:filters:${versions.jhlabs}"
+    compileOnly "javax.servlet:javax.servlet-api:${versions.servlet}"
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure"
+    compileOnly "org.springframework.boot:spring-boot-starter-web"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+}
+
+compileJava.dependsOn(processResources)
+
+apply from: "../publish.gradle"

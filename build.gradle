@@ -1,0 +1,54 @@
+buildscript {
+    ext.versions = [
+            spring_boot: "1.5.12.RELEASE",
+            jhlabs     : "2.0.235-1",
+            servlet    : "3.1.0",
+            quartz     : "2.3.0",
+            okhttp     : "3.10.0",
+            jackson    : "2.8.11",
+            slf4j      : "1.7.25"
+    ]
+
+    repositories {
+        maven { url 'http://10.144.132.71:8081/nexus/content/groups/public/' }
+        maven { url 'http://repo.spring.io/plugins-release' }
+    }
+
+    dependencies {
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${versions.spring_boot}"
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: "maven-publish"
+    apply plugin: "idea"
+
+    group 'com.sinochem'
+    version '0.0.5'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+    [compileJava, compileTestJava]*.options*.encoding = "UTF-8"
+
+    repositories {
+        maven { url 'http://10.144.132.71:8081/nexus/content/groups/public/' }
+    }
+
+    task cleaner(type: Delete, dependsOn: clean) {
+        delete 'out', 'bin', '../build'
+        followSymlinks = true
+    }
+}
+
+def manifestAttributes(title, version) {
+    [
+            'Implementation-Title'  : title,
+            'Implementation-Version': version,
+            'Created-By'            : 'Gradle',
+            'Build-Jdk'             : System.getProperty('java.version'),
+            'Build-date'            : new Date(),
+            'Implementation-URL'    : "https://gitlab.sinochem.cloud/pengyongzheng/spring-boot-starter.git"
+    ]
+}

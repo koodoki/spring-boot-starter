@@ -1,0 +1,2 @@
+# Kaptcha auto-configurations
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.google.code.kaptcha.boot.KaptchaAutoConfiguration

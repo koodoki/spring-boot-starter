@@ -1,0 +1,18 @@
+jar {
+    manifest {
+        attributes manifestAttributes("Spring Boot SMS Starter", version)
+    }
+}
+
+dependencies {
+    compile "com.squareup.okhttp3:okhttp:${versions.okhttp}"
+    compileOnly "com.fasterxml.jackson.core:jackson-core:${versions.jackson}"
+    compileOnly "org.slf4j:slf4j-api:${versions.slf4j}"
+    compileOnly "org.springframework.boot:spring-boot-autoconfigure"
+    compileOnly "org.springframework.boot:spring-boot-starter-web"
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+}
+
+compileJava.dependsOn(processResources)
+
+apply from: "../publish.gradle"

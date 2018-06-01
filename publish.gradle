@@ -1,0 +1,32 @@
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.java.srcDirs
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+
+            from components.java
+            artifacts = [jar, sourcesJar]
+        }
+    }
+
+    repositories {
+        maven {
+            if (project.version.endsWith("-SNAPSHOT")) {
+                url = "http://10.144.132.71:8081/nexus/content/repositories/snapshots/"
+            } else {
+                url = "http://10.144.132.71:8081/nexus/content/repositories/releases/"
+            }
+
+            credentials {
+                username System.properties["username"]
+                password System.properties["password"]
+            }
+        }
+    }
+}
